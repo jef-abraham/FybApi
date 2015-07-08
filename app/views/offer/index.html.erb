@@ -1,0 +1,15 @@
+<form method="get" id="frm_offers">
+  UId: <input type="text" name="uid" value='player1'/>
+  Pub0: <input type="text" name="pub0" value='campaign2'/>
+  Page Number: <input type="text" name="page" value="1"/>
+
+  <input type="submit" name="submit_button" value="Get Offers" />
+</form>
+
+<% if @offers.is_a?(Array) %>
+a
+<%= render :partial => 'list' %>
+<% else %>
+b
+<%= @offers.inspect %>
+<% end %>

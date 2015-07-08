@@ -1,0 +1,11 @@
+<table>
+  <th>title</th>
+  <th>Details</th>
+
+  <% for offer in @offers %>
+  <tr>
+    <td><%= offer['title'] %></td>
+    <td><%= offer['teaser'] %></td>
+  </tr>
+  <% end %>
+</table>

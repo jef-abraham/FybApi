@@ -4,7 +4,9 @@ require 'digest/sha1'
 require 'json'
 
 module Offer  
-    def self.get(opt = {})
+  def self.get(opt = {})
+    offers = 'Error'
+    
       url_params = {'appid'       => 157,
                 'device_id'   => '2b6f0cc904d137be2e1730235f5664094b83',
                 'ip'          => '109.235.143.113',
@@ -24,10 +26,21 @@ module Offer
         http.request(req)
       }
 
-      JSON.parse res.body
+      if res.code == "200"
+        json = JSON.parse(res.body)
+
+        offers = json['offers'] if json['code'] == "OK"
+        offers = "No Content" if json['code'] == "NO_CONTENT"
+      end
+
+      offers
     end
 
     def self.get_hash_key(params)
       Digest::SHA1.hexdigest(params += '&b07a12df7d52e6c118e5d47d3f9e60135b109a1f')
     end
 end
+
+
+# {"code":"ERROR_INVALID_UID","message":"An invalid user id (uid) was given as a parameter in the request."}
+# {"code":"NO_CONTENT","message":"Successful request, but no offers are currently available for this user.","count":0,"pages":0,"information":{"app_name":"Demo iframe for publisher - do not touch","appid":157,"virtual_currency":"Coins","country":"DE","language":"DE","support_url":"http://offer.fyber.com/mobile/support?appid=157&client=api&uid=player1"},"offers":[]}
