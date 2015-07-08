@@ -3,7 +3,10 @@ require 'net/http'
 require 'digest/sha1'
 require 'json'
 
-module Offer  
+module Offer
+  API_KEY = 'b07a12df7d52e6c118e5d47d3f9e60135b109a1f'
+  private_constant :API_KEY
+  
   def self.get(opt = {})
     offers = 'Error'
     
@@ -26,7 +29,7 @@ module Offer
         http.request(req)
       }
 
-      if res.code == "200"
+      if res.code == "200" and valid_response?(res)
         json = JSON.parse(res.body)
 
         offers = json['offers'] if json['code'] == "OK"
@@ -37,7 +40,11 @@ module Offer
     end
 
     def self.get_hash_key(params)
-      Digest::SHA1.hexdigest(params += '&b07a12df7d52e6c118e5d47d3f9e60135b109a1f')
+      Digest::SHA1.hexdigest(params += "&#{API_KEY}")
+    end
+
+    def self.valid_response?(res)
+      res.get_fields('X-Sponsorpay-Response-Signature').first == Digest::SHA1.hexdigest(res.body + API_KEY)
     end
 end
 
