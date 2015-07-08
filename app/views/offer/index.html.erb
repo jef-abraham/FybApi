@@ -9,13 +9,13 @@
         <div class="panel-body">
           <form method="get" id="frm_offers" class="form-inline">
 	    <label for="uid">UId:</label>
-	    <input class="form-control" type="text" name="uid" value='player1'/>
+	    <input class="form-control" type="text" name="uid" value=<%= params['uid'] || 'player1' %> />
 	    
 	    <label for="pub0">Pub0:</label>
-	    <input type="text" name="pub0" value='campaign2'/>
+	    <input type="text" name="pub0" value=<%= params['pub0'] || 'campaign2' %> />
 	    
 	    <label for="page">Page #:</label>
-	    <input type="text" name="page" value="1"/>
+	    <input type="text" name="page" value=<%= params['page'] || '1' %> />
 	    
 	    <input type="submit" name="submit_button" value="Get Offers" class="btn btn-primary"/>
 	  </form>
