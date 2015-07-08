@@ -1,11 +1,21 @@
-<table>
-  <th>title</th>
-  <th>Details</th>
 
+<table class="table">
+  <thead>
+    <tr class="filters">
+      <th>#</th>
+      <th>Title</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+		  
+  <tbody>
+    <% count = 0 %>
   <% for offer in @offers %>
   <tr>
+    <td><%= count = count + 1 %></td>
     <td><%= offer['title'] %></td>
     <td><%= offer['teaser'] %></td>
   </tr>
   <% end %>
+  </tbody>
 </table>
